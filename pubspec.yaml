@@ -1,0 +1,51 @@
+name: check
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.10.5+9
+  cupertino_icons: ^1.0.2
+  sqflite: ^2.3.1
+  smooth_page_indicator: ^1.0.0
+  curved_navigation_bar: ^1.0.3
+  path_provider: ^2.1.2
+  image_picker: ^1.0.7
+  get: ^4.6.6
+  video_player: ^2.8.3
+  chewie: ^1.0.0
+  firebase_core: ^2.27.0
+  cloud_firestore: ^4.15.8
+  firebase_storage: ^11.6.9
+  firebase_messaging: ^14.7.19
+  firebase_auth: ^4.17.8
+  google_sign_in: ^6.2.1
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  # cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/hello.png
+    - assets/images/photo4.gif
+    - assets/images/photo1.png
+    - assets/images/photo3.gif
