@@ -4,7 +4,6 @@ import 'package:check/pages/camera_page.dart';
 import 'package:check/pages/features_page.dart';
 import 'package:check/pages/learn_basics.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String buttonText;
@@ -52,33 +51,7 @@ class AlphabetPage extends StatefulWidget {
 
 class _AphabetPageState extends State<AlphabetPage> {
   int _currentIndex = 0;
-  late Database database;
   @override
-  void initState() {
-    super.initState();
-    createDatabase();
-  }
-
-  void createDatabase() async {
-  database = await openDatabase(
-    'project.db',
-    version: 1,
-    onCreate: (database, version) {
-      print('date created');
-      database
-          .execute(
-              'CREATE TABLE alphabets (id INTEGER PRIMARY KEY , alphabet TEXT)')
-          .then((value) {})
-          .catchError((error) {
-        print('error ${error.toString()}');
-      });
-    },
-    onOpen: (database) {
-      print('data opened');
-    },
-  );
-}
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -90,7 +63,7 @@ class _AphabetPageState extends State<AlphabetPage> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.translate),
-              label: 'Translator',
+              label: 'Sign to Text',
               backgroundColor: Colors.grey,
             ),
             BottomNavigationBarItem(
@@ -458,5 +431,3 @@ class _AphabetPageState extends State<AlphabetPage> {
     );
   }
 }
-
-

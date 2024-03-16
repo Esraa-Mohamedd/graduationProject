@@ -24,10 +24,10 @@ class _GreetingPageState extends State<GreetingPage> {
           currentIndex: _currentIndex,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.translate),
-              label: 'Translator',
-              backgroundColor: Colors.grey,
-            ),
+                icon: Icon(Icons.translate),
+                label: 'Sign to Text',
+                backgroundColor: Colors.grey,
+              ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
@@ -43,22 +43,23 @@ class _GreetingPageState extends State<GreetingPage> {
             setState(() {
               _currentIndex = index;
               if (_currentIndex == 0) {
-                // Action for the 'Translator' tab
+                // Action for the 'sign to text' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CameraPage()),
+                  MaterialPageRoute(builder: (context) => CameraPage()),
                 );
-              } else if (_currentIndex == 1) {
+              }
+              else if (_currentIndex == 1) {
                 // Action for the 'Home' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
+                  MaterialPageRoute(builder: (context) => FeaturesPage()),
                 );
               } else if (_currentIndex == 2) {
                 // Action for the 'Learn' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LearnBasics()),
+                  MaterialPageRoute(builder: (context) => LearnBasics()),
                 );
               }
             });

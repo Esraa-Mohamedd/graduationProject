@@ -3,7 +3,6 @@
 import 'package:check/pages/camera_page.dart';
 import 'package:check/pages/learn_basics.dart';
 import 'package:check/pages/start_page.dart';
-import 'package:check/pages/translate_page.dart';
 import 'package:flutter/material.dart';
 
 class FeaturesPage extends StatelessWidget {
@@ -23,17 +22,20 @@ class FeaturesPage extends StatelessWidget {
             fontSize: 20,
           ),
         ),
-          elevation: 2,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back,color: Colors.black,),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-              );
-            },
+        elevation: 2,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
         ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -171,46 +173,8 @@ class FeaturesPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 50,),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,  
-                      MaterialPageRoute(builder: (context) => TranslatePage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    elevation: 10,
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.g_translate,
-                        size: 20,
-                        color: Colors.black,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Translation',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
-            SizedBox(height: 150),
-            
           ],
         ),
       ),

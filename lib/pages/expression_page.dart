@@ -23,7 +23,7 @@ class _ExpressionPageState extends State<ExpressionPage> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.translate),
-              label: 'Translator',
+              label: 'Sign to Text',
               backgroundColor: Colors.grey,
             ),
             BottomNavigationBarItem(
@@ -41,39 +41,42 @@ class _ExpressionPageState extends State<ExpressionPage> {
             setState(() {
               _currentIndex = index;
               if (_currentIndex == 0) {
-                // Action for the 'Translator' tab
+                // Action for the 'sign to text' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CameraPage()),
+                  MaterialPageRoute(builder: (context) => CameraPage()),
                 );
               } else if (_currentIndex == 1) {
                 // Action for the 'Home' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
+                  MaterialPageRoute(builder: (context) => FeaturesPage()),
                 );
               } else if (_currentIndex == 2) {
                 // Action for the 'Learn' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LearnBasics()),
+                  MaterialPageRoute(builder: (context) => LearnBasics()),
                 );
               }
             });
           },
         ),
         appBar: AppBar(
-        backgroundColor: const Color.fromARGB(230, 255, 255, 255),
-        title: const Text(
-          'Sign Language Translator',
-          style: TextStyle(
-            color: Color.fromARGB(255, 56, 50, 50),
-            fontSize: 20,
+          backgroundColor: const Color.fromARGB(230, 255, 255, 255),
+          title: const Text(
+            'Sign Language Translator',
+            style: TextStyle(
+              color: Color.fromARGB(255, 56, 50, 50),
+              fontSize: 20,
+            ),
           ),
-        ),
           elevation: 2,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back,color: Colors.black,),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.push(
                 context,

@@ -3,7 +3,7 @@
 import 'package:check/pages/camera_page.dart';
 import 'package:check/pages/features_page.dart';
 import 'package:check/pages/learn_basics.dart';
-import 'package:check/pages/translate_page.dart';
+
 // import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
@@ -35,7 +35,7 @@ class _ResultPageState extends State<ResultPage> {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.translate),
-                label: 'Translator',
+                label: 'Sign to Text',
                 backgroundColor: Colors.grey,
               ),
               BottomNavigationBarItem(
@@ -53,7 +53,7 @@ class _ResultPageState extends State<ResultPage> {
               setState(() {
                 _currentIndex = index;
                 if (_currentIndex == 0) {
-                  // Action for the 'Translator' tab
+                  // Action for the 'sign to text' tab
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CameraPage()),
@@ -75,30 +75,33 @@ class _ResultPageState extends State<ResultPage> {
             },
           ),
           appBar: AppBar(
-        backgroundColor: Color.fromARGB(230, 255, 255, 255),
-        title: const Text(
-          'Sign Language Translator',
-          style: TextStyle(
-            color: Color.fromARGB(255, 56, 50, 50),
-            fontSize: 20,
+            backgroundColor: Color.fromARGB(230, 255, 255, 255),
+            title: const Text(
+              'Sign Language Translator',
+              style: TextStyle(
+                color: Color.fromARGB(255, 56, 50, 50),
+                fontSize: 20,
+              ),
+            ),
+            elevation: 2,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraPage()),
+                );
+              },
+            ),
           ),
-        ),
-          elevation: 2,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back,color: Colors.black,),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TranslatePage()),
-              );
-            },
-          ),
-        ),
           body: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   child: Container(
                     width: 426,
                     height: 210,
@@ -117,8 +120,7 @@ class _ResultPageState extends State<ResultPage> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  Colors.black, // Adjust text color as needed
+                              color: Colors.black,
                             ),
                           ),
                         ),
