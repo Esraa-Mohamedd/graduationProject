@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, prefer_const_constructors
+// ignore_for_file: unused_import, prefer_const_constructors, depend_on_referenced_packages
 
 import 'package:check/pages/alphabet_page.dart';
 import 'package:check/pages/camera_page.dart';

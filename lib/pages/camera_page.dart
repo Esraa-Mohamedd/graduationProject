@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, use_super_parameters, unused_local_variable
+// ignore_for_file: unused_import, use_super_parameters, unused_local_variable, avoid_print, depend_on_referenced_packages
 
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -56,19 +56,19 @@ class _CameraPageState extends State<CameraPage> {
                   // Action for the 'sign to text' tab
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CameraPage()),
+                    MaterialPageRoute(builder: (context) => const CameraPage()),
                   );
                 } else if (_currentIndex == 1) {
                   // Action for the 'Home' tab
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FeaturesPage()),
+                    MaterialPageRoute(builder: (context) => const FeaturesPage()),
                   );
                 } else if (_currentIndex == 2) {
                   // Action for the 'Learn' tab
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LearnBasics()),
+                    MaterialPageRoute(builder: (context) => const LearnBasics()),
                   );
                 }
               });

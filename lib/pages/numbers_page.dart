@@ -81,20 +81,20 @@ class _NumbersPageState extends State<NumbersPage> {
                 // Action for the 'sign to text' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CameraPage()),
+                  MaterialPageRoute(builder: (context) => const CameraPage()),
                 );
               }
               else if (_currentIndex == 1) {
                 // Action for the 'Home' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FeaturesPage()),
+                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
                 );
               } else if (_currentIndex == 2) {
                 // Action for the 'Learn' tab
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LearnBasics()),
+                  MaterialPageRoute(builder: (context) => const LearnBasics()),
                 );
               }
             });
