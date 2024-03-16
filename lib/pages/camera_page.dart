@@ -1,11 +1,10 @@
-// ignore_for_file: unused_import, use_super_parameters, unused_local_variable
+// ignore_for_file: unused_import, use_super_parameters, unused_local_variable, avoid_print, depend_on_referenced_packages
 
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:check/pages/features_page.dart';
 import 'package:check/pages/learn_basics.dart';
-import 'package:check/pages/upload_form.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,36 +22,6 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
-
-
-Future<void> getVideoFile() async {
-  try {
-    final videoFile = await ImagePicker().pickVideo(
-      source: ImageSource.gallery,
-      maxDuration: const Duration(seconds: 30),
-    );
-    if (videoFile != null) {
-      File file = File(videoFile.path);
-      String namevideo = p.basename(videoFile.path);
-
-      // Start upload
-      Reference refStorage = FirebaseStorage.instance.ref("videos/$namevideo");
-      await refStorage.putFile(file);
-
-      // Get download URL
-      String url = await refStorage.getDownloadURL();
-
-      print("Upload complete. URL: $url");
-    } else {
-      print("Please choose a video");
-    }
-  } catch (e) {
-    print("Error uploading video: $e");
-    // Handle the error gracefully
-  }
-}
-//=========================================================================
-
   int _currentIndex = 0;
 
   @override
@@ -66,7 +35,7 @@ Future<void> getVideoFile() async {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.translate),
-                label: 'Translator',
+                label: 'Sign to Text',
                 backgroundColor: Colors.grey,
               ),
               BottomNavigationBarItem(
@@ -84,7 +53,7 @@ Future<void> getVideoFile() async {
               setState(() {
                 _currentIndex = index;
                 if (_currentIndex == 0) {
-                  // Action for the 'Translator' tab
+                  // Action for the 'sign to text' tab
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const CameraPage()),
@@ -93,15 +62,13 @@ Future<void> getVideoFile() async {
                   // Action for the 'Home' tab
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const FeaturesPage()),
+                    MaterialPageRoute(builder: (context) => const FeaturesPage()),
                   );
                 } else if (_currentIndex == 2) {
                   // Action for the 'Learn' tab
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const LearnBasics()),
+                    MaterialPageRoute(builder: (context) => const LearnBasics()),
                   );
                 }
               });
@@ -171,58 +138,57 @@ Future<void> getVideoFile() async {
                 const SizedBox(
                   height: 50,
                 ),
-                Builder(
-                  builder: (context) {
-                    return ElevatedButton(
-                      onPressed: () async {
-                        await getVideoFile();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 10,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                Builder(builder: (context) {
+                  return ElevatedButton(
+                    onPressed: () async {
+                      await getVideoFile();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 10,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.video_library_outlined,
+                          size: 20,
+                          color: Colors.black,
                         ),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons
-                                .video_library_outlined,
-                            size: 20,
+                        SizedBox(width: 8),
+                        Text(
+                          'Select Video From Gallery',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
                             color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
-                          SizedBox(width: 8),
-                          Text(
-                            'Select Video From Gallery',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
               ],
             ),
           ),
         ));
   }
 
-  void pickVideo() async {
-    var video = await ImagePicker().pickVideo(source: ImageSource.gallery);
-    setState(() {
-      var _video = video as File;
-    });
-  }
-  //==============================================================================
+//==============================================================================
+//   void pickVideo() async {
+//     var video = await ImagePicker().pickVideo(source: ImageSource.gallery);
+//     setState(() {
+//       var _video = video as File;
+//     });
+//   }
+
+//==============================================================================
   Future<void> recordVideoFile() async {
     try {
       final videoFile = await ImagePicker().pickVideo(
@@ -233,15 +199,37 @@ Future<void> getVideoFile() async {
         File file = File(videoFile.path);
         String namevideo = p.basename(videoFile.path);
 
-
-        // final info = await VideoCompress.compressVideo(
-        //   namevideo,
-        //   quality: VideoQuality.Res1280x720Quality,
-        //   includeAudio: true,
-        // );
-        // File compressedFile = File(info.path);
         // Start upload
-        Reference refStorage = FirebaseStorage.instance.ref("videos/$namevideo");
+        Reference refStorage =
+            FirebaseStorage.instance.ref("videos/$namevideo");
+        await refStorage.putFile(file);
+
+        // Get download URL
+        String url = await refStorage.getDownloadURL();
+
+        print("Upload complete. URL: $url");
+      } else {
+        print("Please record a video");
+      }
+    } catch (e) {
+      print("Error uploading video: $e");
+    }
+  }
+
+//==============================================================================
+  Future<void> getVideoFile() async {
+    try {
+      final videoFile = await ImagePicker().pickVideo(
+        source: ImageSource.gallery,
+        maxDuration: const Duration(seconds: 30),
+      );
+      if (videoFile != null) {
+        File file = File(videoFile.path);
+        String namevideo = p.basename(videoFile.path);
+
+        // Start upload
+        Reference refStorage =
+            FirebaseStorage.instance.ref("videos/$namevideo");
         await refStorage.putFile(file);
 
         // Get download URL
@@ -253,8 +241,6 @@ Future<void> getVideoFile() async {
       }
     } catch (e) {
       print("Error uploading video: $e");
-      // Handle the error gracefully
     }
   }
-
 }
