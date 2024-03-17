@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:check/pages/start_page.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroPage extends StatefulWidget {
@@ -126,7 +125,7 @@ class _IntroPageState extends State<IntroPage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                          MaterialPageRoute(builder: (context) => CurveBar()),
                         );
                       },
                       child: Text(

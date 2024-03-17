@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:check/pages/alphabet_page.dart';
-import 'package:check/pages/camera_page.dart';
 import 'package:check/pages/color_page.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:check/pages/expression_page.dart';
-import 'package:check/pages/features_page.dart';
 import 'package:check/pages/greeting_page.dart';
 import 'package:check/pages/numbers_page.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +50,7 @@ class LearnBasics extends StatefulWidget {
 }
 
 class _LearnBasicsState extends State<LearnBasics> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -59,67 +58,25 @@ class _LearnBasicsState extends State<LearnBasics> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color.fromARGB(213, 178, 211, 231),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.translate),
-                label: 'Sign to Text',
-                backgroundColor: Colors.grey,
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'Learn',
-              backgroundColor: Colors.black,
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              if (_currentIndex == 0) {
-                // Action for the 'sign to text' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CameraPage()),
-                );
-              }
-              else if (_currentIndex == 1) {
-                // Action for the 'Home' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FeaturesPage()),
-                );
-              } else if (_currentIndex == 2) {
-                // Action for the 'Learn' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LearnBasics()),
-                );
-              }
-            });
-          },
-        ),
         appBar: AppBar(
-        backgroundColor: Color.fromARGB(230, 255, 255, 255),
-        title: const Text(
-          'Sign Language Translator',
-          style: TextStyle(
-            color: Color.fromARGB(255, 56, 50, 50),
-            fontSize: 20,
+          backgroundColor: Color.fromARGB(230, 255, 255, 255),
+          title: const Text(
+            'Sign Language Translator',
+            style: TextStyle(
+              color: Color.fromARGB(255, 56, 50, 50),
+              fontSize: 20,
+            ),
           ),
-        ),
           elevation: 2,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back,color: Colors.black,),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FeaturesPage()),
+                MaterialPageRoute(builder: (context) => CurveBar()),
               );
             },
           ),

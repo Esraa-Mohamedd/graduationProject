@@ -1,6 +1,4 @@
-import 'package:check/pages/camera_page.dart';
-import 'package:check/pages/features_page.dart';
-import 'package:check/pages/learn_basics.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,8 +9,56 @@ class GreetingPage extends StatefulWidget {
 }
 
 class _GreetingPageState extends State<GreetingPage> {
+  int _currentIndex = 2;
 
-  int _currentIndex = 0;
+  void _showImageAlertDialog({
+    required BuildContext context,
+    required String title,
+    required String photoPath,
+  }) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(title),
+              content: SingleChildScrollView(
+                  child: Column(
+                      children: [
+                        Image.asset(photoPath, height: 300, width: 300)
+                      ])),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Close'))
+              ]);
+        });
+  }
+
+  Widget CustomElevatedButton({
+    required String text,
+    required String photoPath,
+  }) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size(150, 50),
+        backgroundColor: Colors.white60,
+        minimumSize: const Size(90, 50),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(18)),
+        ),
+      ),
+      onPressed: () {
+        _showImageAlertDialog(
+            context: context, title: text, photoPath: photoPath);
+      },
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white, fontSize: 13.5),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,67 +66,22 @@ class _GreetingPageState extends State<GreetingPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color.fromARGB(213, 178, 211, 231),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.translate),
-                label: 'Sign to Text',
-                backgroundColor: Colors.grey,
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'Learn',
-              backgroundColor: Colors.black,
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              if (_currentIndex == 0) {
-                // Action for the 'sign to text' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraPage()),
-                );
-              }
-              else if (_currentIndex == 1) {
-                // Action for the 'Home' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
-                );
-              } else if (_currentIndex == 2) {
-                // Action for the 'Learn' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LearnBasics()),
-                );
-              }
-            });
-          },
-        ),
         appBar: AppBar(
-        backgroundColor: const Color.fromARGB(230, 255, 255, 255),
-        title: const Text(
-          'Sign Language Translator',
-          style: TextStyle(
-            color: Color.fromARGB(255, 56, 50, 50),
-            fontSize: 20,
+          backgroundColor: const Color.fromARGB(230, 255, 255, 255),
+          title: const Text(
+            'Sign Language Translator',
+            style: TextStyle(
+              color: Color.fromARGB(255, 56, 50, 50),
+              fontSize: 20,
+            ),
           ),
-        ),
           elevation: 2,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back,color: Colors.black,),
+            icon: const Icon(Icons.arrow_back, color: Colors.black,),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LearnBasics()),
+                MaterialPageRoute(builder: (context) => const CurveBar()),
               );
             },
           ),
@@ -115,47 +116,13 @@ class _GreetingPageState extends State<GreetingPage> {
                 const Spacer(
                   flex: 300,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Hello',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(
+                    text: 'Hello', photoPath: 'assets/greeting/hello.gif'),
                 const Spacer(
                   flex: 100,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Good Bye',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(
+                    text: 'Good Bye', photoPath: 'assets/greeting/goodbye.gif'),
                 const Spacer(
                   flex: 295,
                 ),
@@ -170,47 +137,13 @@ class _GreetingPageState extends State<GreetingPage> {
                 const Spacer(
                   flex: 300,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Good Morning',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.7,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(text: 'Good Morning',
+                    photoPath: 'assets/greeting/morning.gif'),
                 const Spacer(
                   flex: 100,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Good Afternoon',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(text: 'Good Afternoon',
+                    photoPath: 'assets/greeting/after.gif'),
                 const Spacer(
                   flex: 290,
                 ),
@@ -225,53 +158,13 @@ class _GreetingPageState extends State<GreetingPage> {
                 const Spacer(
                   flex: 300,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 0,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Good Night',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(
+                    text: 'Good Night', photoPath: 'assets/greeting/night.gif'),
                 const Spacer(
                   flex: 100,
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    backgroundColor: Colors.white60,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'See You Later',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(text: 'See You Later',
+                    photoPath: 'assets/greeting/seeyoulater.gif'),
                 const Spacer(
                   flex: 295,
                 ),

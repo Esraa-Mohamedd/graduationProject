@@ -3,6 +3,7 @@
 import 'package:check/pages/alphabet_page.dart';
 import 'package:check/pages/camera_page.dart';
 import 'package:check/pages/color_page.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:check/pages/expression_page.dart';
 import 'package:check/pages/intro_page.dart';
 import 'package:check/pages/numbers_page.dart';

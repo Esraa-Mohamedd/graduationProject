@@ -1,7 +1,5 @@
-import 'package:check/pages/learn_basics.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:flutter/material.dart';
-import 'camera_page.dart';
-import 'features_page.dart';
 
 class NumbersPage extends StatefulWidget {
   const NumbersPage({super.key});
@@ -10,17 +8,33 @@ class NumbersPage extends StatefulWidget {
   State<NumbersPage> createState() => _NumbersPageState();
 }
 
-class CustomElevatedButton extends StatelessWidget {
-  final String buttonText;
-  final VoidCallback onPressed;
+class _NumbersPageState extends State<NumbersPage> {
+  int _currentIndex = 2;
 
-  const CustomElevatedButton({super.key, 
-    required this.buttonText,
-    required this.onPressed,
-  });
+  void _showImageAlertDialog({
+    required BuildContext context,
+    required String title,
+    required String photoPath,
+  }) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(title),
+              content: SingleChildScrollView(
+                  child: Column(
+                      children: [ Image.asset(photoPath, height: 300, width: 300)])),
+              actions: [
+                TextButton(
+                    onPressed: () {Navigator.of(context).pop();},
+                    child: Text('Close'))]);});
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget CustomElevatedButton({
+    required String text,
+    required String photoPath,
+    required BuildContext context, // Add required context parameter
+  }) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(70, 60),
@@ -29,14 +43,18 @@ class CustomElevatedButton extends StatelessWidget {
           horizontal: 0,
         ),
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(18),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(18)),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        _showImageAlertDialog(
+          context: context,
+          title: text,
+          photoPath: photoPath,
+        );
+      },
       child: Text(
-        buttonText,
+        text,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 30,
@@ -44,10 +62,7 @@ class CustomElevatedButton extends StatelessWidget {
       ),
     );
   }
-}
 
-class _NumbersPageState extends State<NumbersPage> {
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,51 +70,6 @@ class _NumbersPageState extends State<NumbersPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color.fromARGB(213, 178, 211, 231),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.translate),
-                label: 'Sign to Text',
-                backgroundColor: Colors.grey,
-              ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'Learn',
-              backgroundColor: Colors.black,
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              if (_currentIndex == 0) {
-                // Action for the 'sign to text' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraPage()),
-                );
-              }
-              else if (_currentIndex == 1) {
-                // Action for the 'Home' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
-                );
-              } else if (_currentIndex == 2) {
-                // Action for the 'Learn' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LearnBasics()),
-                );
-              }
-            });
-          },
-        ),
         appBar: AppBar(
         backgroundColor: const Color.fromARGB(230, 255, 255, 255),
         title: const Text(
@@ -115,7 +85,7 @@ class _NumbersPageState extends State<NumbersPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LearnBasics()),
+                MaterialPageRoute(builder: (context) => const CurveBar()),
               );
             },
           ),
@@ -143,23 +113,25 @@ class _NumbersPageState extends State<NumbersPage> {
                   flex: 195,
                 ),
                 CustomElevatedButton(
-                  buttonText: '1',
-                  onPressed: () {},
+                    text:'1',
+                photoPath: 'assets/number/1.png',context: context,),
+
+                const Spacer(
+                  flex: 100,
+                ),
+                CustomElevatedButton(
+                  text: '2',
+                  photoPath: 'assets/number/2.png',
+                  context: context,
                 ),
                 const Spacer(
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '2',
-                  onPressed: () {},
-                ),
-                const Spacer(
-                  flex: 100,
-                ),
-                CustomElevatedButton(
-                  buttonText: '3',
-                  onPressed: () {},
-                ),
+                    text:'3',
+                    photoPath: 'assets/number/3.png',
+                  context: context,),
+
                 const Spacer(
                   flex: 195,
                 ),
@@ -175,23 +147,20 @@ class _NumbersPageState extends State<NumbersPage> {
                   flex: 195,
                 ),
                 CustomElevatedButton(
-                  buttonText: '4',
-                  onPressed: () {},
-                ),
+                    text:'4',
+                    photoPath: 'assets/number/4.png',context: context,),
                 const Spacer(
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '5',
-                  onPressed: () {},
-                ),
+                    text:'5',
+                    photoPath: 'assets/number/5.png',context: context,),
                 const Spacer(
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '6',
-                  onPressed: () {},
-                ),
+                    text:'6',
+                    photoPath: 'assets/number/6.png',context: context,),
                 const Spacer(
                   flex: 195,
                 ),
@@ -207,23 +176,20 @@ class _NumbersPageState extends State<NumbersPage> {
                   flex: 195,
                 ),
                 CustomElevatedButton(
-                  buttonText: '7',
-                  onPressed: () {},
-                ),
+                    text:'7',
+                    photoPath: 'assets/number/7.png',context: context,),
                 const Spacer(
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '8',
-                  onPressed: () {},
-                ),
+                    text:'8',
+                    photoPath: 'assets/number/8.png',context: context,),
                 const Spacer(
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '9',
-                  onPressed: () {},
-                ),
+                    text:'9',
+                    photoPath: 'assets/number/9.png',context: context,),
                 const Spacer(
                   flex: 195,
                 ),
@@ -239,9 +205,8 @@ class _NumbersPageState extends State<NumbersPage> {
                   flex: 100,
                 ),
                 CustomElevatedButton(
-                  buttonText: '10',
-                  onPressed: () {},
-                ),
+                    text:'10',
+                    photoPath: 'assets/number/10.gif',context: context,),
                 const Spacer(
                   flex: 100,
                 ),

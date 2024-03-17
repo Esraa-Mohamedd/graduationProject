@@ -1,6 +1,8 @@
 // ignore_for_file: unused_import, use_super_parameters, unused_local_variable, avoid_print, depend_on_referenced_packages
 
 import 'dart:io';
+import 'package:check/pages/curvedNav.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:check/pages/features_page.dart';
@@ -30,50 +32,47 @@ class _CameraPageState extends State<CameraPage> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: const Color.fromARGB(213, 178, 211, 231),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.translate),
-                label: 'Sign to Text',
-                backgroundColor: Colors.grey,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-                backgroundColor: Colors.grey,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.menu_book_outlined),
-                label: 'Learn',
-                backgroundColor: Colors.black,
-              ),
-            ],
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-                if (_currentIndex == 0) {
-                  // Action for the 'sign to text' tab
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CameraPage()),
-                  );
-                } else if (_currentIndex == 1) {
-                  // Action for the 'Home' tab
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const FeaturesPage()),
-                  );
-                } else if (_currentIndex == 2) {
-                  // Action for the 'Learn' tab
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LearnBasics()),
-                  );
-                }
-              });
-            },
-          ),
+          // bottomNavigationBar: CurvedNavigationBar(
+          //   index: _currentIndex,
+          //   height: 60,
+          //   backgroundColor: Colors.transparent,
+          //   color: Colors.white,
+          //   buttonBackgroundColor: Colors.white,
+          //   items: const <Widget>[
+          //     Icon(Icons.translate, size: 30),
+          //     Icon(Icons.home, size: 30),
+          //     Icon(Icons.menu_book_outlined, size: 30),
+          //   ],
+          //   onTap: (index) {
+          //     setState(() {
+          //       _currentIndex = index;
+          //     });
+          //
+          //     // Navigate to the corresponding page based on the index
+          //     switch (_currentIndex) {
+          //       case 0:
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(builder: (context) => CameraPage()),
+          //         );
+          //         break;
+          //       case 1:
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(builder: (context) => FeaturesPage()),
+          //         );
+          //         break;
+          //       case 2:
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(builder: (context) => LearnBasics()),
+          //         );
+          //         break;
+          //       default:
+          //         break;
+          //     }
+          //   },
+          // ),
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(230, 255, 255, 255),
             title: const Text(
@@ -92,7 +91,7 @@ class _CameraPageState extends State<CameraPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
+                  MaterialPageRoute(builder: (context) => const CurveBar()),
                 );
               },
             ),
@@ -102,26 +101,16 @@ class _CameraPageState extends State<CameraPage> {
               children: [
                 const SizedBox(height: 250),
                 ElevatedButton(
-                  onPressed: () async {
-                    await recordVideoFile();
-                  },
+                  onPressed: () async {await recordVideoFile();},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     elevation: 10,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
+                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.camera_alt_outlined,
-                        size: 20,
-                        color: Colors.black,
-                      ),
+                      Icon(Icons.camera_alt_outlined, size: 20, color: Colors.black,),
                       SizedBox(width: 8),
                       Text(
                         'Record Video Here',
@@ -195,17 +184,31 @@ class _CameraPageState extends State<CameraPage> {
         source: ImageSource.camera,
         maxDuration: const Duration(seconds: 30),
       );
+
+      // loading circle
+      showDialog(context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        },
+      );
+
       if (videoFile != null) {
         File file = File(videoFile.path);
         String namevideo = p.basename(videoFile.path);
 
+        // Navigator.of(context).pop();
+
         // Start upload
         Reference refStorage =
-            FirebaseStorage.instance.ref("videos/$namevideo");
+        FirebaseStorage.instance.ref("videos/$namevideo");
         await refStorage.putFile(file);
 
         // Get download URL
         String url = await refStorage.getDownloadURL();
+
+        // Dismiss the loading dialog
+        Navigator.of(context).pop();
 
         print("Upload complete. URL: $url");
       } else {
@@ -223,17 +226,28 @@ class _CameraPageState extends State<CameraPage> {
         source: ImageSource.gallery,
         maxDuration: const Duration(seconds: 30),
       );
+
+      // loading circle
+      showDialog(context: context,
+        barrierDismissible: false,
+        builder: (context) {
+        return Center(child: CircularProgressIndicator());
+      },
+      );
+
       if (videoFile != null) {
         File file = File(videoFile.path);
         String namevideo = p.basename(videoFile.path);
-
         // Start upload
-        Reference refStorage =
-            FirebaseStorage.instance.ref("videos/$namevideo");
+        Reference refStorage = FirebaseStorage.instance.ref(
+            "videos/$namevideo");
+
         await refStorage.putFile(file);
 
         // Get download URL
         String url = await refStorage.getDownloadURL();
+
+        Navigator.of(context).pop();
 
         print("Upload complete. URL: $url");
       } else {

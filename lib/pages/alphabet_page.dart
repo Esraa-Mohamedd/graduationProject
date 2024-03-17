@@ -1,8 +1,10 @@
 // ignore_for_file: unused_local_variable, prefer_const_constructors, sized_box_for_whitespace, avoid_print
 
 import 'package:check/pages/camera_page.dart';
+import 'package:check/pages/curvedNav.dart';
 import 'package:check/pages/features_page.dart';
 import 'package:check/pages/learn_basics.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -10,10 +12,10 @@ class CustomElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const CustomElevatedButton({
-    super.key,
+    Key? key,
     required this.buttonText,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         buttonText,
         style: const TextStyle(
@@ -50,7 +52,27 @@ class AlphabetPage extends StatefulWidget {
 }
 
 class _AphabetPageState extends State<AlphabetPage> {
-  int _currentIndex = 0;
+  void _showImageAlertDialog({
+    required BuildContext context,
+    required String title,
+    required String photoPath,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset( photoPath,height: 300, width: 300)])),
+          actions: [
+            TextButton(
+              onPressed: () {Navigator.of(context).pop();},
+              child: Text('Close'))]);});
+  }
+
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -58,50 +80,6 @@ class _AphabetPageState extends State<AlphabetPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color.fromARGB(213, 178, 211, 231),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.translate),
-              label: 'Sign to Text',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'Learn',
-              backgroundColor: Colors.black,
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              if (_currentIndex == 0) {
-                // Action for the 'Translator' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CameraPage()),
-                );
-              } else if (_currentIndex == 1) {
-                // Action for the 'Home' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FeaturesPage()),
-                );
-              } else if (_currentIndex == 2) {
-                // Action for the 'Learn' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LearnBasics()),
-                );
-              }
-            });
-          },
-        ),
         appBar: AppBar(
           backgroundColor: Color.fromARGB(230, 255, 255, 255),
           title: const Text(
@@ -120,14 +98,17 @@ class _AphabetPageState extends State<AlphabetPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LearnBasics()),
+                MaterialPageRoute(builder: (context) => CurveBar()),
               );
             },
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height, // Set a fixed height
+            height: MediaQuery
+                .of(context)
+                .size
+                .height, // Set a fixed height
             child: Column(
               children: [
                 SizedBox(height: 25),
@@ -147,21 +128,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'A',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'A',
+                          photoPath: 'assets/alphabet/A.jpg',
+                        );
+                      }
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'B',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'B',
+                          photoPath: 'assets/alphabet/B.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'C',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'C',
+                          photoPath: 'assets/alphabet/C.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -179,21 +178,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'D',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'D',
+                          photoPath: 'assets/alphabet/D.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'E',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'E',
+                          photoPath: 'assets/alphabet/E.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'F',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'F',
+                          photoPath: 'assets/alphabet/F.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -211,21 +228,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'G',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'G',
+                          photoPath: 'assets/alphabet/G.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'H',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'H',
+                          photoPath: 'assets/alphabet/H.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'I',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'I',
+                          photoPath: 'assets/alphabet/I.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -243,21 +278,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'J',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'J',
+                          photoPath: 'assets/alphabet/J.gif',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'K',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'K',
+                          photoPath: 'assets/alphabet/K.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'L',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'L',
+                          photoPath: 'assets/alphabet/L.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -275,21 +328,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'M',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'M',
+                          photoPath: 'assets/alphabet/M.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'N',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'N',
+                          photoPath: 'assets/alphabet/N.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'O',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'O',
+                          photoPath: 'assets/alphabet/O.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -307,21 +378,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'P',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'P',
+                          photoPath: 'assets/alphabet/P.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'Q',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'Q',
+                          photoPath: 'assets/alphabet/Q.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'R',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'R',
+                          photoPath: 'assets/alphabet/R.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -339,21 +428,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'S',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'S',
+                          photoPath: 'assets/alphabet/S.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'T',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'T',
+                          photoPath: 'assets/alphabet/T.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'U',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'U',
+                          photoPath: 'assets/alphabet/U.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -371,21 +478,39 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'V',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'V',
+                          photoPath: 'assets/alphabet/V.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'W',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'W',
+                          photoPath: 'assets/alphabet/W.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
                     ),
                     CustomElevatedButton(
                       buttonText: 'X',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'X',
+                          photoPath: 'assets/alphabet/X.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 195,
@@ -403,14 +528,26 @@ class _AphabetPageState extends State<AlphabetPage> {
                     ),
                     CustomElevatedButton(
                       buttonText: 'Y',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'Y',
+                          photoPath: 'assets/alphabet/Y.jpg',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 50,
                     ),
                     CustomElevatedButton(
                       buttonText: 'Z',
-                      onPressed: () {},
+                      onPressed: () {
+                        _showImageAlertDialog(
+                          context: context,
+                          title: 'Z',
+                          photoPath: 'assets/alphabet/Z.gif',
+                        );
+                      },
                     ),
                     const Spacer(
                       flex: 100,
@@ -428,6 +565,9 @@ class _AphabetPageState extends State<AlphabetPage> {
           ),
         ),
       ),
+
+
     );
   }
+
 }

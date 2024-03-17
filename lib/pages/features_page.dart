@@ -5,9 +5,16 @@ import 'package:check/pages/learn_basics.dart';
 import 'package:check/pages/start_page.dart';
 import 'package:flutter/material.dart';
 
-class FeaturesPage extends StatelessWidget {
+class FeaturesPage extends StatefulWidget {
   // ignore: use_super_parameters
   const FeaturesPage({Key? key}) : super(key: key);
+
+  @override
+  State<FeaturesPage> createState() => _FeaturesPageState();
+}
+
+class _FeaturesPageState extends State<FeaturesPage> {
+  int _currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {

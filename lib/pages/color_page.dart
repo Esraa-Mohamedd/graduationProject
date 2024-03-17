@@ -1,17 +1,54 @@
-import 'package:check/pages/camera_page.dart';
-import 'package:check/pages/features_page.dart';
+import 'package:check/pages/curvedNav.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:check/pages/learn_basics.dart';
+
+import 'camera_page.dart';
+import 'features_page.dart';
+import 'learn_basics.dart';
 
 class ColorPage extends StatefulWidget {
-  const ColorPage({super.key});
+  const ColorPage({Key? key}) : super(key: key);
 
   @override
   State<ColorPage> createState() => _ColorPageState();
 }
 
 class _ColorPageState extends State<ColorPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
+
+  void _showImageAlertDialog({
+    required BuildContext context,
+    required String title,
+    required String photoPath,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [ Image.asset(photoPath, height: 300, width: 300)])),
+          actions: [
+            TextButton(
+              onPressed: () {Navigator.of(context).pop();},
+              child: Text('Close'))]);});
+  }
+
+  Widget CustomElevatedButton({
+    required String text,
+    required String photoPath,
+    required Color color,
+  }) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size(180, 40),backgroundColor: color, minimumSize: const Size(90, 50),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(18)))),
+      onPressed: () {_showImageAlertDialog(context: context, title: text, photoPath: photoPath,);},
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white, fontSize: 20)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,59 +56,10 @@ class _ColorPageState extends State<ColorPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color.fromARGB(213, 178, 211, 231),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.translate),
-              label: 'Sign to Text',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.grey,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'Learn',
-              backgroundColor: Colors.black,
-            ),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              if (_currentIndex == 0) {
-                // Action for the 'sign to text' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraPage()),
-                );
-              } else if (_currentIndex == 1) {
-                // Action for the 'Home' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FeaturesPage()),
-                );
-              } else if (_currentIndex == 2) {
-                // Action for the 'Learn' tab
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LearnBasics()),
-                );
-              }
-            });
-          },
-        ),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(230, 255, 255, 255),
-          title: const Text(
-            'Sign Language Translator',
-            style: TextStyle(
-              color: Color.fromARGB(255, 56, 50, 50),
-              fontSize: 20,
-            ),
-          ),
+          title: const Text('Sign Language Translator',
+            style: TextStyle( color: Color.fromARGB(255, 56, 50, 50), fontSize: 20)),
           elevation: 2,
           leading: IconButton(
             icon: const Icon(
@@ -81,7 +69,7 @@ class _ColorPageState extends State<ColorPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LearnBasics()),
+                MaterialPageRoute(builder: (context) => const CurveBar()),
               );
             },
           ),
@@ -106,170 +94,63 @@ class _ColorPageState extends State<ColorPage> {
             const Spacer(
               flex: 6,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: const Color.fromARGB(172, 218, 77, 67),
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Red',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Red',
+              photoPath: 'assets/color/red.gif',
+              color: const Color.fromARGB(172, 218, 77, 67),
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: const Color.fromARGB(255, 227, 158, 53),
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Orange',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Orange',
+              photoPath: 'assets/color/orange.gif',
+              color: const Color.fromARGB(255, 227, 158, 53),
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(180, 235, 219, 76),
-                fixedSize: const Size(180, 40),
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Yellow',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Yellow',
+              photoPath: 'assets/color/yellow.gif',
+              color: const Color.fromARGB(180, 235, 219, 76),
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: const Color.fromARGB(194, 76, 175, 79),
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Green',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Green',
+              photoPath: 'assets/color/green.gif',
+              color: const Color.fromARGB(194, 76, 175, 79),
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: const Color.fromARGB(201, 68, 150, 218),
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Blue',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Blue',
+              photoPath: 'assets/color/blue.gif',
+              color: const Color.fromARGB(201, 68, 150, 218),
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: Colors.black,
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Black',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'Black',
+              photoPath: 'assets/color/black.gif',
+              color: Colors.black87,
             ),
             const Spacer(
               flex: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(180, 40),
-                backgroundColor: Colors.white,
-                minimumSize: const Size(90, 50),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'White',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
+            CustomElevatedButton(
+              text: 'White',
+              photoPath: 'assets/color/white.gif',
+              color: Colors.white70,
             ),
             const Spacer(
               flex: 12,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+            )
+          ])
+      )
+    );}
 }
